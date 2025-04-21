@@ -22,15 +22,24 @@ public class Main {
 
         HashMap<String, List<Pair<String, Integer>>> posTagger = new HashMap<String, List<Pair<String, Integer>>>();
 
-        for (Sentence sentence : dataset) {
-            for (int i = 0; i < sentence.getWords().size(); i++) {
-                List<Word> words = sentence.getWords();
-                StringBuilder keyBigram = new StringBuilder();
-
-                // Add key:val for unigram tagger
-                
-            }
+        List<String>[] testset = getTestSet(dataset.subList(0, 100));
+        for (List<String> sentence : testset) {
+            System.out.println(String.join(" ", sentence));
         }
+
+        // for (Sentence sentence : dataset) {
+        //     for (int i = 0; i < sentence.getWords().size(); i++) {
+        //         List<Word> words = sentence.getWords();
+
+        //         // Add key:val for unigram tagger
+        //         posTagger.compute(words.get(i), (key, pairs) -> {
+        //             pairs.get()
+        //         });
+
+        //         // Add key:val for bigram tagger
+        //         StringBuilder keyBigram = new StringBuilder();
+        //     }
+        // }
         
         
     }
@@ -68,9 +77,11 @@ public class Main {
 
                 for (String pair : pairs) {
                     String[] parts = pair.split("\\\\");
+                    sentence.addWord(parts[0], parts[1]);
                 }
 
                 dataset.add(sentence);
+                reader.close();
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
