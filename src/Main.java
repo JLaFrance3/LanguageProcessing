@@ -19,10 +19,9 @@ public class Main {
         String path = "Training.txt";
         List<Sentence> dataset = readFile(path);
 
-        List<String>[] testset = getTestSet(dataset.subList(0, 100));
-        for (List<String> sentence : testset) {
-            System.out.println(String.join(" ", sentence));
-        }
+        
+        
+        
     }
 
     // Returns a 2D array of sentences and their words obtained from passed List<Sentence>
@@ -58,12 +57,6 @@ public class Main {
 
                 for (String pair : pairs) {
                     String[] parts = pair.split("\\\\");
-
-                    // Do not include punctuation or substrings like 's. May need to add more.
-                    //https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html
-                    if (!Pattern.matches("\\p{Punct}\\w?", parts[0])) {
-                        sentence.addWord(parts[0], parts[1]);
-                    }
                 }
 
                 dataset.add(sentence);
