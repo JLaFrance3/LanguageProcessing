@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class Main {
     
@@ -20,28 +19,82 @@ public class Main {
         String path = "Training.txt";
         List<Sentence> dataset = readFile(path);
 
-        HashMap<String, List<Pair<String, Integer>>> posTagger = new HashMap<String, List<Pair<String, Integer>>>();
+        HashMap<String, List<Pair>> posTagger = buildFrequencyTable(dataset);
 
-        List<String>[] testset = getTestSet(dataset.subList(0, 100));
-        for (List<String> sentence : testset) {
-            System.out.println(String.join(" ", sentence));
+        
+        
+        
+    }
+
+    // Returns a frequency table containing each word in
+    // Parameter should be a sublist of elements from original dataset minus the test set
+    private static HashMap<String, List<Pair>> buildFrequencyTable(List<Sentence> dataset) {
+        HashMap<String, List<Pair>> posTagger = new HashMap<String, List<Pair>>();
+        
+        for (Sentence sentence : dataset) {
+            List<Word> words = sentence.getWords();
+
+            for (int i = 0; i < words.size(); i++) {
+                String word = words.get(i).text();
+                String posTag = words.get(i).posTag();
+
+                //Unigram tagger
+                posTagger.compute(word, (key, pairs) -> {
+                    //Initiate ArrayList if not already
+                    if (pairs == null) {
+                        pairs = new ArrayList<>();
+                    }
+
+                    //Update existing pair with posTag key
+                    boolean updated = false;
+                    for (Pair pair : pairs) {
+                        if (pair.getKey().equals(posTag)) {
+                            pair.increment();   // Increase occurence count
+                            updated = true;
+                            break;
+                        }
+                    }
+
+                    //Add new pair if no existing one
+                    if (!updated) {
+                        pairs.add(new Pair(posTag, 1));
+                    }
+                    return pairs;
+                });
+
+                //Bigram tagger for i > 0
+                if (i > 0) {
+                    // Key will contain previous tag and current word for context ex. "NN|walked"
+                    String previousTag = words.get(i-1).posTag();
+                    String bigram = previousTag + "|" + word;
+
+                    posTagger.compute(bigram, (key, pairs) -> {
+                        //Initiate ArrayList if not already
+                        if (pairs == null) {
+                            pairs = new ArrayList<>();
+                        }
+    
+                        //Update existing pair with posTag key
+                        boolean updated = false;
+                        for (Pair pair : pairs) {
+                            if (pair.getKey().equals(posTag)) {
+                                pair.increment();   // Increase occurence count
+                                updated = true;
+                                break;
+                            }
+                        }
+
+                        //Add new pair if no existing one
+                        if (!updated) {
+                            pairs.add(new Pair(posTag, 1));
+                        }
+                        return pairs;
+                    });
+                }
+            }
         }
 
-        // for (Sentence sentence : dataset) {
-        //     for (int i = 0; i < sentence.getWords().size(); i++) {
-        //         List<Word> words = sentence.getWords();
-
-        //         // Add key:val for unigram tagger
-        //         posTagger.compute(words.get(i), (key, pairs) -> {
-        //             pairs.get()
-        //         });
-
-        //         // Add key:val for bigram tagger
-        //         StringBuilder keyBigram = new StringBuilder();
-        //     }
-        // }
-        
-        
+        return posTagger;
     }
 
     // Returns a 2D array of sentences and their words obtained from passed List<Sentence>
@@ -76,7 +129,7 @@ public class Main {
                 String[] pairs = lineSentence.split("\t");
 
                 for (String pair : pairs) {
-                    String[] parts = pair.split("\\\\");
+                    String[] parts = pair.split("\\");
                     sentence.addWord(parts[0], parts[1]);
                 }
 
@@ -89,23 +142,5 @@ public class Main {
         }
 
         return dataset;
-    }
-
-    public class Pair<K, V> {
-        private final K key;
-        private V value;
-    
-        public Pair(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-    
-        public K getKey() {
-            return key;
-        }
-    
-        public V getValue() {
-            return value;
-        }
     }
 }
