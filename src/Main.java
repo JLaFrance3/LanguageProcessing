@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -19,7 +20,17 @@ public class Main {
         String path = "Training.txt";
         List<Sentence> dataset = readFile(path);
 
-        
+        HashMap<String, List<Pair<String, Integer>>> posTagger = new HashMap<String, List<Pair<String, Integer>>>();
+
+        for (Sentence sentence : dataset) {
+            for (int i = 0; i < sentence.getWords().size(); i++) {
+                List<Word> words = sentence.getWords();
+                StringBuilder keyBigram = new StringBuilder();
+
+                // Add key:val for unigram tagger
+                
+            }
+        }
         
         
     }
@@ -67,5 +78,23 @@ public class Main {
         }
 
         return dataset;
+    }
+
+    public class Pair<K, V> {
+        private final K key;
+        private V value;
+    
+        public Pair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    
+        public K getKey() {
+            return key;
+        }
+    
+        public V getValue() {
+            return value;
+        }
     }
 }
