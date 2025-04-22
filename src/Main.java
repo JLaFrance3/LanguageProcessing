@@ -32,13 +32,14 @@ public class Main {
         try {
             //Create BufferedWriter for accuracy report
             BufferedWriter writer = new BufferedWriter(new FileWriter("AccuracyReport.txt"));
+            writer.write("Bigram Tagger Accuracy Report\n\n");
 
             // Jacknife procedure using 1000 words an iteration as a test set
             for (int i = 0; i < dataset.size(); i += 1000) {
                 int end = Math.min(i + 1000, dataset.size());
 
                 //Create test set used to test the training
-                testSet = getTestSet(dataset.subList(i, end));
+                testSet = getTestSet(dataset.subList(i, end), false);
 
                 //Create training set that doesn't include test set
                 List<Sentence> trainingSet = new ArrayList<>();
@@ -49,15 +50,37 @@ public class Main {
                 //Tag test set
                 List<String[][]> taggedTestSet = tagTestSet(testSet, frequencyTable);
 
-                //TODO: Check accuracy
-                for (String[][] s : taggedTestSet) {
-                    for (String[] t : s) {
-                        System.out.print(t[0] + "/" + t[1]);
-                    }
-                    System.out.println();
-                }
-            }
+                // Update accuracy information
+                int wordCount = 0;
+                int correct = 0;
+                List<String[][]> testSetAccurate = getTestSet(dataset.subList(i, end), true);
+                for (int j = 0; j < taggedTestSet.size(); j++) {
+                    String[][] testSentence = taggedTestSet.get(j);
+                    String[][] testSentenceAccurate = testSetAccurate.get(j);
 
+                    wordCount += testSentence.length;   //Update word count
+                    for (int k = 0; k < testSentence.length; k++) {
+                        if (testSentence[k][1].equals(testSentenceAccurate[k][1])) {
+                            correct++;                  //Increment number of correct tags
+                        }
+                    }
+                }
+
+                // Construct accuracy report output Strings
+                double currentAccuracy = (double) correct / wordCount * 100;
+                String iterationString = String.format("Iteration %,d:\nTest Range: %,d-%,d of %,d\n", i/1000, i, end, dataset.size());
+                String accuracyString = String.format("Accuracy: %,d out of %,d words tagged correctly. (%%%.2f)\n\n", correct, wordCount, currentAccuracy);
+
+                writer.write(iterationString);
+                writer.write(accuracyString);
+
+                // Update global accuracy information
+                totalWords += wordCount;
+                correctTags += correct;
+                accuracy = (double) correctTags / totalWords * 100;
+            }
+            
+            writer.write(String.format("Final Result:\nTotal Words: %,d\nTotal Correctly Tagged: %,d\nAccuracy: %%%.2f", totalWords, correctTags, accuracy));
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -185,8 +208,9 @@ public class Main {
     }
 
     // Returns a list of 'sentences', each a 2D array of words with an empty element for use in tagging
-    // Parameter should be a sublist of 1000 elements from original dataset
-    private static List<String[][]> getTestSet(List<Sentence> testSentences) {
+    // Parameter testSentences should be a sublist of 1000 elements from original dataset
+    // Parameter includeOriginalTags is used for checking accuracy of training
+    private static List<String[][]> getTestSet(List<Sentence> testSentences, boolean includeOriginalTags) {
         List<String[][]> testset = new ArrayList<>();
 
         // Reformat Sentence objects
@@ -197,6 +221,10 @@ public class Main {
 
             for (int j = 0; j < words.size(); j++) {
                 newSentence[j][0] = words.get(j).text();
+
+                if (includeOriginalTags) {
+                    newSentence[j][1] = words.get(j).posTag();
+                }
             }
         }
 

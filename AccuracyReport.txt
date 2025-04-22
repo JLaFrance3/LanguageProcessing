@@ -1,0 +1,194 @@
+Bigram Tagger Accuracy Report
+
+Iteration 0:
+Test Range: 0-1,000 of 46,959
+Accuracy: 21,368 out of 22,319 words tagged correctly. (%95.74)
+
+Iteration 1:
+Test Range: 1,000-2,000 of 46,959
+Accuracy: 20,902 out of 21,778 words tagged correctly. (%95.98)
+
+Iteration 2:
+Test Range: 2,000-3,000 of 46,959
+Accuracy: 20,853 out of 21,803 words tagged correctly. (%95.64)
+
+Iteration 3:
+Test Range: 3,000-4,000 of 46,959
+Accuracy: 21,047 out of 21,917 words tagged correctly. (%96.03)
+
+Iteration 4:
+Test Range: 4,000-5,000 of 46,959
+Accuracy: 20,621 out of 21,537 words tagged correctly. (%95.75)
+
+Iteration 5:
+Test Range: 5,000-6,000 of 46,959
+Accuracy: 21,273 out of 22,181 words tagged correctly. (%95.91)
+
+Iteration 6:
+Test Range: 6,000-7,000 of 46,959
+Accuracy: 20,491 out of 21,374 words tagged correctly. (%95.87)
+
+Iteration 7:
+Test Range: 7,000-8,000 of 46,959
+Accuracy: 20,801 out of 21,698 words tagged correctly. (%95.87)
+
+Iteration 8:
+Test Range: 8,000-9,000 of 46,959
+Accuracy: 20,719 out of 21,619 words tagged correctly. (%95.84)
+
+Iteration 9:
+Test Range: 9,000-10,000 of 46,959
+Accuracy: 20,987 out of 21,933 words tagged correctly. (%95.69)
+
+Iteration 10:
+Test Range: 10,000-11,000 of 46,959
+Accuracy: 21,185 out of 22,159 words tagged correctly. (%95.60)
+
+Iteration 11:
+Test Range: 11,000-12,000 of 46,959
+Accuracy: 20,512 out of 21,470 words tagged correctly. (%95.54)
+
+Iteration 12:
+Test Range: 12,000-13,000 of 46,959
+Accuracy: 20,681 out of 21,577 words tagged correctly. (%95.85)
+
+Iteration 13:
+Test Range: 13,000-14,000 of 46,959
+Accuracy: 21,239 out of 22,207 words tagged correctly. (%95.64)
+
+Iteration 14:
+Test Range: 14,000-15,000 of 46,959
+Accuracy: 21,246 out of 22,195 words tagged correctly. (%95.72)
+
+Iteration 15:
+Test Range: 15,000-16,000 of 46,959
+Accuracy: 20,746 out of 21,702 words tagged correctly. (%95.59)
+
+Iteration 16:
+Test Range: 16,000-17,000 of 46,959
+Accuracy: 21,371 out of 22,207 words tagged correctly. (%96.24)
+
+Iteration 17:
+Test Range: 17,000-18,000 of 46,959
+Accuracy: 21,401 out of 22,388 words tagged correctly. (%95.59)
+
+Iteration 18:
+Test Range: 18,000-19,000 of 46,959
+Accuracy: 20,848 out of 21,815 words tagged correctly. (%95.57)
+
+Iteration 19:
+Test Range: 19,000-20,000 of 46,959
+Accuracy: 20,475 out of 21,325 words tagged correctly. (%96.01)
+
+Iteration 20:
+Test Range: 20,000-21,000 of 46,959
+Accuracy: 20,716 out of 21,721 words tagged correctly. (%95.37)
+
+Iteration 21:
+Test Range: 21,000-22,000 of 46,959
+Accuracy: 21,037 out of 22,074 words tagged correctly. (%95.30)
+
+Iteration 22:
+Test Range: 22,000-23,000 of 46,959
+Accuracy: 20,809 out of 21,706 words tagged correctly. (%95.87)
+
+Iteration 23:
+Test Range: 23,000-24,000 of 46,959
+Accuracy: 21,047 out of 21,998 words tagged correctly. (%95.68)
+
+Iteration 24:
+Test Range: 24,000-25,000 of 46,959
+Accuracy: 20,803 out of 21,745 words tagged correctly. (%95.67)
+
+Iteration 25:
+Test Range: 25,000-26,000 of 46,959
+Accuracy: 20,994 out of 22,057 words tagged correctly. (%95.18)
+
+Iteration 26:
+Test Range: 26,000-27,000 of 46,959
+Accuracy: 21,274 out of 22,167 words tagged correctly. (%95.97)
+
+Iteration 27:
+Test Range: 27,000-28,000 of 46,959
+Accuracy: 20,712 out of 21,715 words tagged correctly. (%95.38)
+
+Iteration 28:
+Test Range: 28,000-29,000 of 46,959
+Accuracy: 20,995 out of 21,984 words tagged correctly. (%95.50)
+
+Iteration 29:
+Test Range: 29,000-30,000 of 46,959
+Accuracy: 21,029 out of 21,953 words tagged correctly. (%95.79)
+
+Iteration 30:
+Test Range: 30,000-31,000 of 46,959
+Accuracy: 20,833 out of 21,818 words tagged correctly. (%95.49)
+
+Iteration 31:
+Test Range: 31,000-32,000 of 46,959
+Accuracy: 21,032 out of 22,027 words tagged correctly. (%95.48)
+
+Iteration 32:
+Test Range: 32,000-33,000 of 46,959
+Accuracy: 20,462 out of 21,349 words tagged correctly. (%95.85)
+
+Iteration 33:
+Test Range: 33,000-34,000 of 46,959
+Accuracy: 21,206 out of 22,224 words tagged correctly. (%95.42)
+
+Iteration 34:
+Test Range: 34,000-35,000 of 46,959
+Accuracy: 20,859 out of 21,793 words tagged correctly. (%95.71)
+
+Iteration 35:
+Test Range: 35,000-36,000 of 46,959
+Accuracy: 21,046 out of 21,914 words tagged correctly. (%96.04)
+
+Iteration 36:
+Test Range: 36,000-37,000 of 46,959
+Accuracy: 20,809 out of 21,747 words tagged correctly. (%95.69)
+
+Iteration 37:
+Test Range: 37,000-38,000 of 46,959
+Accuracy: 21,440 out of 22,397 words tagged correctly. (%95.73)
+
+Iteration 38:
+Test Range: 38,000-39,000 of 46,959
+Accuracy: 20,880 out of 21,768 words tagged correctly. (%95.92)
+
+Iteration 39:
+Test Range: 39,000-40,000 of 46,959
+Accuracy: 21,404 out of 22,410 words tagged correctly. (%95.51)
+
+Iteration 40:
+Test Range: 40,000-41,000 of 46,959
+Accuracy: 20,506 out of 21,385 words tagged correctly. (%95.89)
+
+Iteration 41:
+Test Range: 41,000-42,000 of 46,959
+Accuracy: 20,946 out of 21,916 words tagged correctly. (%95.57)
+
+Iteration 42:
+Test Range: 42,000-43,000 of 46,959
+Accuracy: 20,580 out of 21,439 words tagged correctly. (%95.99)
+
+Iteration 43:
+Test Range: 43,000-44,000 of 46,959
+Accuracy: 20,640 out of 21,533 words tagged correctly. (%95.85)
+
+Iteration 44:
+Test Range: 44,000-45,000 of 46,959
+Accuracy: 20,877 out of 21,892 words tagged correctly. (%95.36)
+
+Iteration 45:
+Test Range: 45,000-46,000 of 46,959
+Accuracy: 20,801 out of 21,756 words tagged correctly. (%95.61)
+
+Iteration 46:
+Test Range: 46,000-46,959 of 46,959
+Accuracy: 19,917 out of 20,806 words tagged correctly. (%95.73)
+
+Final Result:
+Total Words: 1,026,498
+Total Correctly Tagged: 982,420
+Accuracy: %95.71
