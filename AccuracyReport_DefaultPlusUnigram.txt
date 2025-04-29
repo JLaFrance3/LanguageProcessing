@@ -1,0 +1,190 @@
+Default + Unigram Tagging Accuracy Report
+
+Iteration 0:
+Test Range: 0-1,000 of 46,959
+Accuracy: %93.76
+
+Iteration 1:
+Test Range: 1,000-2,000 of 46,959
+Accuracy: %93.81
+
+Iteration 2:
+Test Range: 2,000-3,000 of 46,959
+Accuracy: %93.46
+
+Iteration 3:
+Test Range: 3,000-4,000 of 46,959
+Accuracy: %93.84
+
+Iteration 4:
+Test Range: 4,000-5,000 of 46,959
+Accuracy: %93.44
+
+Iteration 5:
+Test Range: 5,000-6,000 of 46,959
+Accuracy: %93.78
+
+Iteration 6:
+Test Range: 6,000-7,000 of 46,959
+Accuracy: %93.76
+
+Iteration 7:
+Test Range: 7,000-8,000 of 46,959
+Accuracy: %93.81
+
+Iteration 8:
+Test Range: 8,000-9,000 of 46,959
+Accuracy: %93.55
+
+Iteration 9:
+Test Range: 9,000-10,000 of 46,959
+Accuracy: %93.59
+
+Iteration 10:
+Test Range: 10,000-11,000 of 46,959
+Accuracy: %93.48
+
+Iteration 11:
+Test Range: 11,000-12,000 of 46,959
+Accuracy: %93.51
+
+Iteration 12:
+Test Range: 12,000-13,000 of 46,959
+Accuracy: %93.86
+
+Iteration 13:
+Test Range: 13,000-14,000 of 46,959
+Accuracy: %93.27
+
+Iteration 14:
+Test Range: 14,000-15,000 of 46,959
+Accuracy: %93.47
+
+Iteration 15:
+Test Range: 15,000-16,000 of 46,959
+Accuracy: %93.39
+
+Iteration 16:
+Test Range: 16,000-17,000 of 46,959
+Accuracy: %94.19
+
+Iteration 17:
+Test Range: 17,000-18,000 of 46,959
+Accuracy: %93.60
+
+Iteration 18:
+Test Range: 18,000-19,000 of 46,959
+Accuracy: %93.39
+
+Iteration 19:
+Test Range: 19,000-20,000 of 46,959
+Accuracy: %93.82
+
+Iteration 20:
+Test Range: 20,000-21,000 of 46,959
+Accuracy: %93.35
+
+Iteration 21:
+Test Range: 21,000-22,000 of 46,959
+Accuracy: %93.14
+
+Iteration 22:
+Test Range: 22,000-23,000 of 46,959
+Accuracy: %93.49
+
+Iteration 23:
+Test Range: 23,000-24,000 of 46,959
+Accuracy: %93.60
+
+Iteration 24:
+Test Range: 24,000-25,000 of 46,959
+Accuracy: %93.61
+
+Iteration 25:
+Test Range: 25,000-26,000 of 46,959
+Accuracy: %93.11
+
+Iteration 26:
+Test Range: 26,000-27,000 of 46,959
+Accuracy: %93.86
+
+Iteration 27:
+Test Range: 27,000-28,000 of 46,959
+Accuracy: %93.18
+
+Iteration 28:
+Test Range: 28,000-29,000 of 46,959
+Accuracy: %93.34
+
+Iteration 29:
+Test Range: 29,000-30,000 of 46,959
+Accuracy: %93.54
+
+Iteration 30:
+Test Range: 30,000-31,000 of 46,959
+Accuracy: %93.34
+
+Iteration 31:
+Test Range: 31,000-32,000 of 46,959
+Accuracy: %93.39
+
+Iteration 32:
+Test Range: 32,000-33,000 of 46,959
+Accuracy: %93.76
+
+Iteration 33:
+Test Range: 33,000-34,000 of 46,959
+Accuracy: %93.43
+
+Iteration 34:
+Test Range: 34,000-35,000 of 46,959
+Accuracy: %93.57
+
+Iteration 35:
+Test Range: 35,000-36,000 of 46,959
+Accuracy: %93.84
+
+Iteration 36:
+Test Range: 36,000-37,000 of 46,959
+Accuracy: %93.60
+
+Iteration 37:
+Test Range: 37,000-38,000 of 46,959
+Accuracy: %93.74
+
+Iteration 38:
+Test Range: 38,000-39,000 of 46,959
+Accuracy: %93.65
+
+Iteration 39:
+Test Range: 39,000-40,000 of 46,959
+Accuracy: %93.58
+
+Iteration 40:
+Test Range: 40,000-41,000 of 46,959
+Accuracy: %93.63
+
+Iteration 41:
+Test Range: 41,000-42,000 of 46,959
+Accuracy: %93.38
+
+Iteration 42:
+Test Range: 42,000-43,000 of 46,959
+Accuracy: %93.69
+
+Iteration 43:
+Test Range: 43,000-44,000 of 46,959
+Accuracy: %93.88
+
+Iteration 44:
+Test Range: 44,000-45,000 of 46,959
+Accuracy: %93.33
+
+Iteration 45:
+Test Range: 45,000-46,000 of 46,959
+Accuracy: %93.61
+
+Iteration 46:
+Test Range: 46,000-46,959 of 46,959
+Accuracy: %93.66
+

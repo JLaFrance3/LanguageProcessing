@@ -31,8 +31,13 @@ public class Main {
 
         try {
             //Create BufferedWriter for accuracy report
-            BufferedWriter writer = new BufferedWriter(new FileWriter("AccuracyReport.txt"));
-            writer.write("Bigram Tagger Accuracy Report\n\n");
+            BufferedWriter defaultOnlyWriter = new BufferedWriter(new FileWriter("AccuracyReport_DefaultOnly.txt"));
+            BufferedWriter defaultPlusUnigramWriter = new BufferedWriter(new FileWriter("AccuracyReport_DefaultPlusUnigram.txt"));
+            BufferedWriter originalWriter = new BufferedWriter(new FileWriter("AccuracyReport_Original.txt"));
+
+            defaultOnlyWriter.write("Default Only Tagging Accuracy Report\n\n");
+            defaultPlusUnigramWriter.write("Default + Unigram Tagging Accuracy Report\n\n");
+            originalWriter.write("Original (Bigram + Unigram + Default) Tagging Accuracy Report\n\n");
 
             // Jacknife procedure using 1000 words an iteration as a test set
             for (int i = 0; i < dataset.size(); i += 1000) {
@@ -47,95 +52,121 @@ public class Main {
                 trainingSet.addAll(dataset.subList(end, dataset.size()));
                 frequencyTable = buildFrequencyTable(trainingSet);      //Build frequency table from training set
 
-                //Tag test set
-                List<String[][]> taggedTestSet = tagTestSet(testSet, frequencyTable);
+                //Tag test sets
+                List<String[][]> defaultOnlyTagged = tagTestSet(testSet, frequencyTable, "default");
+                List<String[][]> defaultPlusUnigramTagged = tagTestSet(testSet, frequencyTable, "unigram");
+                List<String[][]> originalTagged = tagTestSet(testSet, frequencyTable, "original");
 
                 // Update accuracy information
-                int wordCount = 0;
-                int correct = 0;
                 List<String[][]> testSetAccurate = getTestSet(dataset.subList(i, end), true);
-                for (int j = 0; j < taggedTestSet.size(); j++) {
-                    String[][] testSentence = taggedTestSet.get(j);
-                    String[][] testSentenceAccurate = testSetAccurate.get(j);
 
-                    wordCount += testSentence.length;   //Update word count
-                    for (int k = 0; k < testSentence.length; k++) {
-                        if (testSentence[k][1].equals(testSentenceAccurate[k][1])) {
-                            correct++;                  //Increment number of correct tags
-                        }
-                    }
-                }
+                double defaultOnlyAcc = calculateAccuracy(defaultOnlyTagged, testSetAccurate);
+                double defaultPlusUnigramAcc = calculateAccuracy(defaultPlusUnigramTagged, testSetAccurate);
+                double originalAcc = calculateAccuracy(originalTagged, testSetAccurate);
 
                 // Construct accuracy report output Strings
-                double currentAccuracy = (double) correct / wordCount * 100;
                 String iterationString = String.format("Iteration %,d:\nTest Range: %,d-%,d of %,d\n", i/1000, i, end, dataset.size());
-                String accuracyString = String.format("Accuracy: %,d out of %,d words tagged correctly. (%%%.2f)\n\n", correct, wordCount, currentAccuracy);
 
-                writer.write(iterationString);
-                writer.write(accuracyString);
+                defaultOnlyWriter.write(iterationString);
+                defaultOnlyWriter.write(String.format("Accuracy: %%%.2f\n\n", defaultOnlyAcc));
 
-                // Update global accuracy information
-                totalWords += wordCount;
-                correctTags += correct;
-                accuracy = (double) correctTags / totalWords * 100;
+                defaultPlusUnigramWriter.write(iterationString);
+                defaultPlusUnigramWriter.write(String.format("Accuracy: %%%.2f\n\n", defaultPlusUnigramAcc));
+
+                originalWriter.write(iterationString);
+                originalWriter.write(String.format("Accuracy: %%%.2f\n\n", originalAcc));
             }
-            
-            writer.write(String.format("Final Result:\nTotal Words: %,d\nTotal Correctly Tagged: %,d\nAccuracy: %%%.2f", totalWords, correctTags, accuracy));
-            writer.close();
+
+            // Close writers
+            defaultOnlyWriter.close();
+            defaultPlusUnigramWriter.close();
+            originalWriter.close();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
 
-    // Adds tags to a test set List<String[][]>
-    // Parameter testSet should be obtained from the getTestSet() method.
-    // Parameter frequencyTable should be obtained from the buildFrequencyTable() method
-    private static List<String[][]> tagTestSet(List<String[][]> testSet, HashMap<String, List<Pair>> frequencyTable) {
-        List<String[][]> taggedTestSet = testSet;
-
+    // Adds tags to a test set List<String[][]> based on the strategy
+    private static List<String[][]> tagTestSet(List<String[][]> testSet, HashMap<String, List<Pair>> frequencyTable, String strategy) {
+        List<String[][]> taggedTestSet = new ArrayList<>();
+    
+        // Deep copy the testSet to avoid modifying the original
+        for (String[][] sentence : testSet) {
+            String[][] copiedSentence = new String[sentence.length][2];
+            for (int i = 0; i < sentence.length; i++) {
+                copiedSentence[i][0] = sentence[i][0];
+                copiedSentence[i][1] = sentence[i][1];
+            }
+            taggedTestSet.add(copiedSentence);
+        }
+    
         for (String[][] testSentence : taggedTestSet) {
             for (int j = 0; j < testSentence.length; j++) {
                 String currentWord = testSentence[j][0];
-
-                // Bigram
-                if (j > 0) {
-                    //Construct bigram key (PoS|Word) for frequency table lookup
-                    String bigramKey = testSentence[j-1][1] + "|" + currentWord;
-
-                    //Check if table contains bigram key
-                    if (frequencyTable.containsKey(bigramKey)) {
-                        //Find tag with highest frequency
-                        Pair posMatch = new Pair("", 0);
-                        for (Pair tag : frequencyTable.get(bigramKey)) {
-                            if (tag.getValue() > posMatch.getValue()) posMatch = tag;   //Swap posMatch if number of occurences is higher
+                boolean tagged = false;
+    
+                if (strategy.equals("original")) {
+                    // Bigram first
+                    if (j > 0) {
+                        String bigramKey = testSentence[j-1][1] + "|" + currentWord;
+                        if (frequencyTable.containsKey(bigramKey)) {
+                            tagged = true;
+                            testSentence[j][1] = findMostFrequentTag(frequencyTable.get(bigramKey));
                         }
-
-                        testSentence[j][1] = posMatch.getKey();     //Add PoS tag to our test set
-                        continue;
+                    }
+                    // Then unigram
+                    if (!tagged && frequencyTable.containsKey(currentWord)) {
+                        tagged = true;
+                        testSentence[j][1] = findMostFrequentTag(frequencyTable.get(currentWord));
+                    }
+                } else if (strategy.equals("unigram")) {
+                    // Only unigram fallback
+                    if (frequencyTable.containsKey(currentWord)) {
+                        tagged = true;
+                        testSentence[j][1] = findMostFrequentTag(frequencyTable.get(currentWord));
                     }
                 }
-
-                // Unigram
-                //Check if table contains unigram key
-                if (frequencyTable.containsKey(currentWord)) {
-                    //Find tag with highest frequency
-                    Pair posMatch = new Pair("", 0);
-                    for (Pair tag : frequencyTable.get(currentWord)) {
-                        if (tag.getValue() > posMatch.getValue()) posMatch = tag;       //Swap posMatch if number of occurences is higher
-                    }
-                    testSentence[j][1] = posMatch.getKey();         //Add PoS tag to our test set
-                }
-                else {
-                    //Default tag will be NN
+    
+                if (!tagged) {
+                    // Default tag will be NN
                     testSentence[j][1] = "NN";
                 }
             }
         }
-
         return taggedTestSet;
     }
 
+    // Helper to find the most frequent tag from a list
+    private static String findMostFrequentTag(List<Pair> tags) {
+        Pair posMatch = new Pair("", 0);
+        for (Pair tag : tags) {
+            if (tag.getValue() > posMatch.getValue()) {
+                posMatch = tag;
+            }
+        }
+        return posMatch.getKey();
+    }
+
+    // Calculates accuracy between tagged and accurate test sets
+    private static double calculateAccuracy(List<String[][]> taggedSet, List<String[][]> accurateSet) {
+        int total = 0;
+        int correct = 0;
+
+        for (int i = 0; i < taggedSet.size(); i++) {
+            String[][] taggedSentence = taggedSet.get(i);
+            String[][] accurateSentence = accurateSet.get(i);
+
+            total += taggedSentence.length;
+            for (int j = 0; j < taggedSentence.length; j++) {
+                if (taggedSentence[j][1].equals(accurateSentence[j][1])) {
+                    correct++;
+                }
+            }
+        }
+        return (double) correct / total * 100.0;
+    }
     // Returns a frequency table containing each word in
     // Parameter should be a sublist of elements from original dataset minus the test set
     private static HashMap<String, List<Pair>> buildFrequencyTable(List<Sentence> dataset) {
